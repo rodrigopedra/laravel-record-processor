@@ -1,0 +1,36 @@
+{
+  "name": "rodrigopedra/laravel-record-processor",
+  "description": "Laravel Record Processor",
+  "keywords": [
+    "laravel",
+    "record processor",
+    "php"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Rodrigo Pedra Brum",
+      "email": "rodrigo.pedra@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "psr/log": "^1.0",
+    "rodrigopedra/record-processor": "^0.1",
+    "illuminate/support": "^5.4",
+    "illuminate/contracts": "^5.4",
+    "maatwebsite/excel": "^2.1",
+    "illuminate/database": "^5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "RodrigoPedra\\LaravelRecordProcessor\\": "src/LaravelRecordProcessor/",
+      "RodrigoPedra\\LaravelRecordProcessor\\Examples\\": "examples/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.3",
+    "symfony/console": "^3.3",
+    "symfony/var-dumper": "^3.3"
+  }
+}
