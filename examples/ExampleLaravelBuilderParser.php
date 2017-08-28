@@ -5,7 +5,7 @@ namespace RodrigoPedra\LaravelRecordProcessor\Examples;
 use RodrigoPedra\RecordProcessor\Contracts\Reader;
 use RodrigoPedra\RecordProcessor\Contracts\Record;
 use RodrigoPedra\RecordProcessor\Contracts\RecordParser;
-use RodrigoPedra\RecordProcessor\Records\ArrayRecord;
+use RodrigoPedra\RecordProcessor\Examples\RecordObjects\ExampleRecord;
 
 class ExampleLaravelBuilderParser implements RecordParser
 {
@@ -19,7 +19,7 @@ class ExampleLaravelBuilderParser implements RecordParser
      */
     public function parseRecord( Reader $reader, $rawContent )
     {
-        return new ArrayRecord( [
+        return new ExampleRecord( [
             'name'  => $rawContent->name,
             'email' => $rawContent->email,
         ] );

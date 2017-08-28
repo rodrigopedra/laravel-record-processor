@@ -5,7 +5,7 @@ namespace RodrigoPedra\LaravelRecordProcessor\Examples;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder;
 use RodrigoPedra\RecordProcessor\Examples\ExamplesCommand as BaseExamplesCommand;
-use RodrigoPedra\RecordProcessor\Helpers\Configurator;
+use RodrigoPedra\RecordProcessor\Helpers\WriterConfigurator;
 
 class ExamplesCommand extends BaseExamplesCommand
 {
@@ -36,17 +36,17 @@ class ExamplesCommand extends BaseExamplesCommand
             $builder->usingParser( new ExampleLaravelBuilderParser );
 
             $eloquentBuilder = $this->makeEloquentBuilder();
-
             $eloquentBuilder->take( 10 );
 
             return $builder->readFromEloquent( $eloquentBuilder );
         }
 
         if ($reader === 'query-builder') {
-            $eloquentBuilder = $this->makeEloquentBuilder();
             $builder->usingParser( new ExampleLaravelBuilderParser );
 
+            $eloquentBuilder = $this->makeEloquentBuilder();
             $eloquentBuilder->take( 10 );
+            $eloquentBuilder->select( [ 'name', 'email' ] );
 
             return $builder->readFromQueryBuilder( $eloquentBuilder->getQuery() );
         }
@@ -65,8 +65,9 @@ class ExamplesCommand extends BaseExamplesCommand
         if ($writer === 'eloquent') {
             $eloquentBuilder = $this->makeEloquentBuilder();
 
-            return $builder->writeToEloquent( $eloquentBuilder, function ( Configurator $configurator ) {
+            return $builder->writeToEloquent( $eloquentBuilder, function ( WriterConfigurator $configurator ) {
                 $configurator->outputModels( true );
+                $configurator->setRecordFormatter( new ExampleLaravelBuilderFormatter );
             } );
         }
 
