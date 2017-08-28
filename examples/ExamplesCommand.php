@@ -66,7 +66,7 @@ class ExamplesCommand extends BaseExamplesCommand
             $eloquentBuilder = $this->makeEloquentBuilder();
 
             return $builder->writeToEloquent( $eloquentBuilder, function ( Configurator $configurator ) {
-                $configurator->setShouldOutputModels( true );
+                $configurator->outputModels( true );
             } );
         }
 

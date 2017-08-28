@@ -33,15 +33,15 @@ class EloquentWriter implements ConfigurableWriter
         $this->keyName = $this->writer->getModel()->getKeyName();
 
         // default values
-        $this->setShouldOutputModels( false );
+        $this->outputModels( false );
     }
 
     /**
      * @param bool $shouldOutputModels
      */
-    public function setShouldOutputModels( $shouldOutputModels )
+    public function outputModels( $shouldOutputModels )
     {
-        $this->shouldOutputModels = $shouldOutputModels;
+        $this->shouldOutputModels = !!$shouldOutputModels;
     }
 
     /**
@@ -92,7 +92,7 @@ class EloquentWriter implements ConfigurableWriter
     {
         return [
             'getEloquentBuilder',
-            'setShouldOutputModels',
+            'outputModels',
         ];
     }
 

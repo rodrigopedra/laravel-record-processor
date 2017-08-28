@@ -16,11 +16,12 @@
   "require": {
     "php": ">=7.0",
     "psr/log": "^1.0",
-    "rodrigopedra/record-processor": "^0.1",
+    "rodrigopedra/record-processor": "^0.2",
     "illuminate/support": "^5.4",
     "illuminate/contracts": "^5.4",
     "maatwebsite/excel": "^2.1",
-    "illuminate/database": "^5.4"
+    "illuminate/database": "^5.4",
+    "illuminate/http": "^5.4"
   },
   "autoload": {
     "psr-4": {

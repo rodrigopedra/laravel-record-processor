@@ -4,10 +4,12 @@
 require __DIR__ . '/vendor/autoload.php';
 
 use RodrigoPedra\LaravelRecordProcessor\Examples\ExamplesCommand;
+use RodrigoPedra\RecordProcessor\Examples\DownloadCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
 
 $application->add( new ExamplesCommand );
+$application->add( new DownloadCommand );
 
 $application->run();
