@@ -16,6 +16,11 @@ class EloquentRecord implements Record
         $this->model = $model;
     }
 
+    public function getModel()
+    {
+        return $this->model;
+    }
+
     public function getField( $field, $default = '' )
     {
         $value = $this->model->getAttributeValue( $field );
