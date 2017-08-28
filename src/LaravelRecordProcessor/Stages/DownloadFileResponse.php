@@ -3,6 +3,7 @@
 namespace RodrigoPedra\LaravelRecordProcessor\Stages;
 
 use Illuminate\Contracts\Routing\ResponseFactory;
+use InvalidArgumentException;
 use RodrigoPedra\RecordProcessor\Contracts\ProcessorStageFlusher;
 use RodrigoPedra\RecordProcessor\Stages\DownloadFileOutput;
 
@@ -10,6 +11,10 @@ class DownloadFileResponse extends DownloadFileOutput implements ProcessorStageF
 {
     protected function downloadFile()
     {
+        if ($this->inputFileInfo->isTempFile()) {
+            throw new InvalidArgumentException( 'Cannot use a temporary file to make a download response' );
+        }
+
         $filename = rawurlencode( $this->outputFileInfo->getBasename() );
 
         /** @var ResponseFactory $factory */
