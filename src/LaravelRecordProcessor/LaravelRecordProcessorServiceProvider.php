@@ -19,6 +19,6 @@ class LaravelRecordProcessorServiceProvider extends ServiceProvider
             return new ProcessorBuilder;
         } );
 
-        $this->app->alias( BaseProcessorBuilder::class, ProcessorBuilder::class );
+        $this->app->alias( ProcessorBuilder::class, BaseProcessorBuilder::class );
     }
 }
