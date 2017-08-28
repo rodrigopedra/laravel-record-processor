@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use RodrigoPedra\LaravelRecordProcessor\Readers\EloquentReader;
 use RodrigoPedra\LaravelRecordProcessor\Readers\QueryBuilderReader;
-use RodrigoPedra\LaravelRecordProcessor\Stages\FileDowloadResponse;
+use RodrigoPedra\LaravelRecordProcessor\Stages\DownloadFileResponse;
 use RodrigoPedra\LaravelRecordProcessor\Writers\EloquentWriter;
 use RodrigoPedra\LaravelRecordProcessor\Writers\QueryBuilderWriter;
 use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseBaseProcessorBuilder;
@@ -31,9 +31,9 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
         return $this;
     }
 
-    public function writeToEloquent( callable $configurator = null )
+    public function writeToEloquent( Builder $eloquentBuilder, callable $configurator = null )
     {
-        $writer = new EloquentWriter;
+        $writer = new EloquentWriter( $eloquentBuilder );
 
         $this->addCompiler( $writer, $this->configureWriter( $writer, $configurator ) );
 
@@ -49,9 +49,9 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
         return $this;
     }
 
-    public function outputFileAsDowloadResponse( $outputFilename )
+    public function downloadFileResponse( $outputFilename = '', $deleteFileAfterDownload = false )
     {
-        $this->addStage( new FileDowloadResponse( $outputFilename ) );
+        $this->addStage( new DownloadFileResponse( $outputFilename, $deleteFileAfterDownload ) );
 
         return $this;
     }

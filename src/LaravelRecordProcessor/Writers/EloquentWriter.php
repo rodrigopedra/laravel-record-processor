@@ -2,6 +2,7 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Writers;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use RodrigoPedra\RecordProcessor\Contracts\ConfigurableWriter;
@@ -14,16 +15,26 @@ class EloquentWriter implements ConfigurableWriter
 {
     use CountsLines;
 
+    /** @var Builder */
+    private $eloquentBuilder;
+
     /** @var Collection|null */
     protected $results = null;
 
     /** @var bool */
     protected $shouldOutputModels = false;
 
-    public function __construct()
+    public function __construct( Builder $eloquentBuilder )
     {
+        $this->eloquentBuilder = $eloquentBuilder;
+
         // default values
         $this->outputModels( false );
+    }
+
+    public function getEloquentBuilder()
+    {
+        return $this->eloquentBuilder;
     }
 
     /**
@@ -52,9 +63,7 @@ class EloquentWriter implements ConfigurableWriter
             throw new RuntimeException( 'content for EloquentWriter should be Eloquent Model' );
         }
 
-        $builder = $model->newQuery();
-
-        $newModel = $builder->findOrNew( $model->getKey() );
+        $newModel = $this->eloquentBuilder->findOrNew( $model->getKey() );
         $newModel->setRawAttributes( $model->getAttributes() )->save();
 
         if ($this->shouldOutputModels) {
@@ -69,7 +78,10 @@ class EloquentWriter implements ConfigurableWriter
      */
     public function getConfigurableMethods()
     {
-        return [ 'outputModels' ];
+        return [
+            'getEloquentBuilder',
+            'outputModels',
+        ];
     }
 
     /**
