@@ -31,9 +31,9 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
         return $this;
     }
 
-    public function writeToEloquent( Builder $eloquentBuilder, callable $configurator = null )
+    public function writeToEloquent( callable $configurator = null )
     {
-        $writer = new EloquentWriter( $eloquentBuilder );
+        $writer = new EloquentWriter;
 
         $this->addCompiler( $writer, $this->configureWriter( $writer, $configurator ) );
 

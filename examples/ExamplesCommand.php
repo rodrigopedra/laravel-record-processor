@@ -63,9 +63,9 @@ class ExamplesCommand extends BaseExamplesCommand
     protected function writeTo( $builder, $writer )
     {
         if ($writer === 'eloquent') {
-            $eloquentBuilder = $this->makeEloquentBuilder();
+            $this->makeEloquentBuilder();
 
-            return $builder->writeToEloquent( $eloquentBuilder, function ( WriterConfigurator $configurator ) {
+            return $builder->writeToEloquent( function ( WriterConfigurator $configurator ) {
                 $configurator->outputModels( true );
                 $configurator->setRecordFormatter( new ExampleLaravelBuilderFormatter );
             } );
