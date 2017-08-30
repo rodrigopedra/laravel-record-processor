@@ -33,5 +33,12 @@
     "phpunit/phpunit": "^6.3",
     "symfony/console": "^3.3",
     "symfony/var-dumper": "^3.3"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "RodrigoPedra\\LaravelRecordProcessor\\LaravelRecordProcessorServiceProvider"
+      ]
+    }
   }
 }
