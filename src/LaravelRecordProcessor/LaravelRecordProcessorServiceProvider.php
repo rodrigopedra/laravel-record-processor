@@ -7,6 +7,8 @@ use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseProcessorBuilder;
 
 class LaravelRecordProcessorServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
+
     public function boot() { }
 
     public function register()
@@ -20,5 +22,13 @@ class LaravelRecordProcessorServiceProvider extends ServiceProvider
         } );
 
         $this->app->alias( ProcessorBuilder::class, BaseProcessorBuilder::class );
+    }
+
+    public function provides()
+    {
+        return [
+            ProcessorBuilder::class,
+            BaseProcessorBuilder::class,
+        ];
     }
 }
