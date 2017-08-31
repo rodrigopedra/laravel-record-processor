@@ -60,11 +60,14 @@ class EloquentWriter implements ConfigurableWriter
     public function append( $model )
     {
         if (!$model instanceof Model) {
-            throw new RuntimeException( 'content for EloquentWriter should be Eloquent Model' );
+            throw new RuntimeException( 'content for EloquentWriter should be an Eloquent model instance' );
         }
 
-        $newModel = $this->eloquentBuilder->findOrNew( $model->getKey() );
-        $newModel->setRawAttributes( $model->getAttributes() )->save();
+        $model = $this->saveModel( $model );
+
+        if (!$model->exists) {
+            throw new RuntimeException( 'Could not save Eloquent model' );
+        }
 
         if ($this->shouldOutputModels) {
             $this->results->push( $model );
@@ -98,5 +101,27 @@ class EloquentWriter implements ConfigurableWriter
     public function output()
     {
         return $this->results;
+    }
+
+    protected function saveModel( Model $instance )
+    {
+        // existing record fetched from database
+        if ($instance->exists) {
+            $instance->save();
+
+            return $instance;
+        }
+
+        // new record with no key
+        if (is_null( $instance->getKey() )) {
+            $instance->save();
+
+            return $instance;
+        }
+
+        $newInstance = $this->eloquentBuilder->findOrNew( $instance->getKey() );
+        $newInstance->setRawAttributes( $instance->getAttributes() )->save();
+
+        return $newInstance;
     }
 }

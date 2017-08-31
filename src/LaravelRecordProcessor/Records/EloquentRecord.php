@@ -21,11 +21,22 @@ class EloquentRecord implements Record
         return $this->model;
     }
 
-    public function getField( $field, $default = '' )
+    public function get( $field, $default = '' )
     {
+        // do not use relations as attributes
         $value = $this->model->getAttributeValue( $field );
 
         return value_or_null( $value ) ?: $default;
+    }
+
+    public function set( $field, $value )
+    {
+        $this->model->setAttribute( $field, $value );
+    }
+
+    public function getKey()
+    {
+        return $this->model->getKey();
     }
 
     public function valid()
@@ -38,10 +49,5 @@ class EloquentRecord implements Record
     public function toArray()
     {
         return $this->model->toArray();
-    }
-
-    public function getKey()
-    {
-        return $this->model->getKey();
     }
 }

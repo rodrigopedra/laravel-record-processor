@@ -11,9 +11,7 @@ use RodrigoPedra\RecordProcessor\Traits\ReaderInnerIterator;
 
 class QueryBuilderReader implements ConfigurableReader
 {
-    use CountsLines, ReaderInnerIterator {
-        current as iteratorCurrent;
-    }
+    use CountsLines, ReaderInnerIterator;
 
     /** @var  Builder */
     protected $queryBuilder;

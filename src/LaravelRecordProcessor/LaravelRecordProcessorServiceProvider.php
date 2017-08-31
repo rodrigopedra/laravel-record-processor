@@ -18,7 +18,12 @@ class LaravelRecordProcessorServiceProvider extends ServiceProvider
         }
 
         $this->app->bind( ProcessorBuilder::class, function () {
-            return new ProcessorBuilder;
+            $processor = new ProcessorBuilder;
+
+            $processor->setLogger( $this->app->get( 'log' ) );
+            $processor->setExcel( $this->app->get( 'excel' ) );
+
+            return $processor;
         } );
 
         $this->app->alias( ProcessorBuilder::class, BaseProcessorBuilder::class );

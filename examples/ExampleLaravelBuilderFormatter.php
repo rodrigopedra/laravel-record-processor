@@ -30,7 +30,7 @@ class ExampleLaravelBuilderFormatter implements RecordFormatter
                 'name'  => $record->getKey(),
                 'email' => implode( ', ', array_map(
                     function ( Record $record ) {
-                        return $record->getField( 'email' );
+                        return $record->get( 'email' );
                     }, $record->getRecords() ) ),
             ];
         }

@@ -51,7 +51,7 @@ class QueryBuilderWriter implements ConfigurableWriter
         }
 
         if (!$this->writer->insert( $content )) {
-            throw new RuntimeException( 'Could not write Query\Builder records' );
+            throw new RuntimeException( 'Could not write Query\Builder record' );
         }
 
         $this->incrementLineCount();

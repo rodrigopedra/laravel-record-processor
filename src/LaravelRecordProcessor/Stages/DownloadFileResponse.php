@@ -2,7 +2,6 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Stages;
 
-use Illuminate\Contracts\Routing\ResponseFactory;
 use InvalidArgumentException;
 use RodrigoPedra\RecordProcessor\Contracts\ProcessorStageFlusher;
 use RodrigoPedra\RecordProcessor\Stages\DownloadFileOutput;
@@ -17,12 +16,8 @@ class DownloadFileResponse extends DownloadFileOutput implements ProcessorStageF
 
         $filename = rawurlencode( $this->outputFileInfo->getBasename() );
 
-        /** @var ResponseFactory $factory */
-        $factory = app( ResponseFactory::class );
-
-        $response = $factory->download( $this->inputFile, $filename );
-        $response->deleteFileAfterSend( $this->deleteAfterDownload );
-
-        return $response;
+        return response()
+            ->download( $this->inputFile, $filename )
+            ->deleteFileAfterSend( $this->deleteAfterDownload );
     }
 }
