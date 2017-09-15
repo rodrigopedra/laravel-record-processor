@@ -7,11 +7,11 @@ use Illuminate\Database\Query\Builder;
 use RodrigoPedra\RecordProcessor\Contracts\ConfigurableReader;
 use RodrigoPedra\RecordProcessor\Helpers\Configurator;
 use RodrigoPedra\RecordProcessor\Traits\CountsLines;
-use RodrigoPedra\RecordProcessor\Traits\ReaderInnerIterator;
+use RodrigoPedra\RecordProcessor\Traits\Readers\HasInnerIterator;
 
 class QueryBuilderReader implements ConfigurableReader
 {
-    use CountsLines, ReaderInnerIterator;
+    use CountsLines, HasInnerIterator;
 
     /** @var  Builder */
     protected $queryBuilder;

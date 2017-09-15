@@ -5,7 +5,7 @@ namespace RodrigoPedra\LaravelRecordProcessor\Examples;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder;
 use RodrigoPedra\RecordProcessor\Examples\ExamplesCommand as BaseExamplesCommand;
-use RodrigoPedra\RecordProcessor\Helpers\WriterConfigurator;
+use RodrigoPedra\RecordProcessor\Helpers\Writers\WriterConfigurator;
 
 class ExamplesCommand extends BaseExamplesCommand
 {

@@ -16,7 +16,7 @@
   "require": {
     "php": ">=7.0",
     "psr/log": "^1.0",
-    "rodrigopedra/record-processor": "^0.7",
+    "rodrigopedra/record-processor": "^0.8",
     "illuminate/support": "^5.4|^5.5",
     "illuminate/contracts": "^5.4|^5.5",
     "maatwebsite/excel": "^2.1",
