@@ -58,9 +58,9 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
         return $this;
     }
 
-    public function writeToQueryBuilder( QueryBuilder $eloquentBuilder, callable $configurator = null )
+    public function writeToQueryBuilder( QueryBuilder $queryBuilder, callable $configurator = null )
     {
-        $writer = new QueryBuilderWriter( $eloquentBuilder );
+        $writer = new QueryBuilderWriter( $queryBuilder );
 
         if (is_null( $this->recordFormatter )) {
             $this->usingFormatter( new ArrayRecordFormatter );
