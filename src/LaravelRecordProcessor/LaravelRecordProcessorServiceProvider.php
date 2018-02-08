@@ -13,15 +13,10 @@ class LaravelRecordProcessorServiceProvider extends ServiceProvider
 
     public function register()
     {
-        if (!$this->app->bound( 'excel' )) {
-            $this->app->register( \Maatwebsite\Excel\ExcelServiceProvider::class );
-        }
-
         $this->app->bind( ProcessorBuilder::class, function () {
             $processor = new ProcessorBuilder;
 
             $processor->setLogger( $this->app->get( 'log' ) );
-            $processor->setExcel( $this->app->get( 'excel' ) );
 
             return $processor;
         } );
