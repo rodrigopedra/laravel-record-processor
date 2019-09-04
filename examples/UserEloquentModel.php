@@ -8,7 +8,7 @@ class UserEloquentModel extends Model
 {
     public $timestamps = false;
 
-    protected $table      = 'users';
+    protected $table = 'users';
     protected $primaryKey = 'rowid';
 
     protected $fillable = [
@@ -17,5 +17,5 @@ class UserEloquentModel extends Model
         'email',
     ];
 
-    protected $hidden = [ 'rowid' ];
+    protected $hidden = ['rowid'];
 }

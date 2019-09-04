@@ -2,11 +2,11 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Readers;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
-use RodrigoPedra\RecordProcessor\Contracts\ConfigurableReader;
-use RodrigoPedra\RecordProcessor\Helpers\Configurator;
+use Illuminate\Database\Eloquent\Model;
 use RodrigoPedra\RecordProcessor\Traits\CountsLines;
+use RodrigoPedra\RecordProcessor\Helpers\Configurator;
+use RodrigoPedra\RecordProcessor\Contracts\ConfigurableReader;
 use RodrigoPedra\RecordProcessor\Traits\Readers\HasInnerIterator;
 
 class QueryBuilderReader implements ConfigurableReader
@@ -19,7 +19,7 @@ class QueryBuilderReader implements ConfigurableReader
     /** @var Model */
     protected $currentRecord = false;
 
-    public function __construct( Builder $eloquentBuilder )
+    public function __construct(Builder $eloquentBuilder)
     {
         $this->queryBuilder = $eloquentBuilder;
     }
@@ -28,12 +28,12 @@ class QueryBuilderReader implements ConfigurableReader
     {
         $this->lineCount = 0;
 
-        $this->setInnerIterator( $this->queryBuilder->get()->getIterator() );
+        $this->setInnerIterator($this->queryBuilder->get()->getIterator());
     }
 
     public function close()
     {
-        $this->setInnerIterator( null );
+        $this->setInnerIterator(null);
     }
 
     /**
@@ -49,7 +49,7 @@ class QueryBuilderReader implements ConfigurableReader
      */
     public function getConfigurableMethods()
     {
-        return [ 'getQueryBuilder' ];
+        return ['getQueryBuilder'];
     }
 
     /**
@@ -57,6 +57,6 @@ class QueryBuilderReader implements ConfigurableReader
      */
     public function createConfigurator()
     {
-        return new Configurator( $this );
+        return new Configurator($this);
     }
 }

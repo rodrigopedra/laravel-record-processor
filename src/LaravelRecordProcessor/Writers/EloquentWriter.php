@@ -2,14 +2,14 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Writers;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use RodrigoPedra\RecordProcessor\Contracts\ConfigurableWriter;
-use RodrigoPedra\RecordProcessor\Helpers\Configurator;
-use RodrigoPedra\RecordProcessor\Helpers\Writers\WriterConfigurator;
-use RodrigoPedra\RecordProcessor\Traits\CountsLines;
 use RuntimeException;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use RodrigoPedra\RecordProcessor\Traits\CountsLines;
+use RodrigoPedra\RecordProcessor\Helpers\Configurator;
+use RodrigoPedra\RecordProcessor\Contracts\ConfigurableWriter;
+use RodrigoPedra\RecordProcessor\Helpers\Writers\WriterConfigurator;
 
 class EloquentWriter implements ConfigurableWriter
 {
@@ -24,12 +24,12 @@ class EloquentWriter implements ConfigurableWriter
     /** @var bool */
     protected $shouldOutputModels = false;
 
-    public function __construct( Builder $eloquentBuilder )
+    public function __construct(Builder $eloquentBuilder)
     {
         $this->eloquentBuilder = $eloquentBuilder;
 
         // default values
-        $this->outputModels( false );
+        $this->outputModels(false);
     }
 
     public function getEloquentBuilder()
@@ -38,11 +38,11 @@ class EloquentWriter implements ConfigurableWriter
     }
 
     /**
-     * @param bool $shouldOutputModels
+     * @param  bool  $shouldOutputModels
      */
-    public function outputModels( $shouldOutputModels )
+    public function outputModels($shouldOutputModels)
     {
-        $this->shouldOutputModels = !!$shouldOutputModels;
+        $this->shouldOutputModels = ! ! $shouldOutputModels;
     }
 
     public function open()
@@ -57,20 +57,20 @@ class EloquentWriter implements ConfigurableWriter
         //
     }
 
-    public function append( $model )
+    public function append($model)
     {
-        if (!$model instanceof Model) {
-            throw new RuntimeException( 'content for EloquentWriter should be an Eloquent model instance' );
+        if (! $model instanceof Model) {
+            throw new RuntimeException('content for EloquentWriter should be an Eloquent model instance');
         }
 
-        $model = $this->saveModel( $model );
+        $model = $this->saveModel($model);
 
-        if (!$model->exists) {
-            throw new RuntimeException( 'Could not save Eloquent model' );
+        if (! $model->exists) {
+            throw new RuntimeException('Could not save Eloquent model');
         }
 
         if ($this->shouldOutputModels) {
-            $this->results->push( $model );
+            $this->results->push($model);
         }
 
         $this->incrementLineCount();
@@ -92,7 +92,7 @@ class EloquentWriter implements ConfigurableWriter
      */
     public function createConfigurator()
     {
-        return new WriterConfigurator( $this, false, false );
+        return new WriterConfigurator($this, false, false);
     }
 
     /**
@@ -103,7 +103,7 @@ class EloquentWriter implements ConfigurableWriter
         return $this->results;
     }
 
-    protected function saveModel( Model $instance )
+    protected function saveModel(Model $instance)
     {
         // existing record fetched from database
         if ($instance->exists) {
@@ -113,14 +113,14 @@ class EloquentWriter implements ConfigurableWriter
         }
 
         // new record with no key
-        if (is_null( $instance->getKey() )) {
+        if (is_null($instance->getKey())) {
             $instance->save();
 
             return $instance;
         }
 
-        $newInstance = $this->eloquentBuilder->findOrNew( $instance->getKey() );
-        $newInstance->setRawAttributes( $instance->getAttributes() )->save();
+        $newInstance = $this->eloquentBuilder->findOrNew($instance->getKey());
+        $newInstance->setRawAttributes($instance->getAttributes())->save();
 
         return $newInstance;
     }

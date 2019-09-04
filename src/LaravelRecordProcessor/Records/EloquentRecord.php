@@ -11,7 +11,7 @@ class EloquentRecord implements Record
     /** @var  Model */
     protected $model;
 
-    public function __construct( Model $model )
+    public function __construct(Model $model)
     {
         $this->model = $model;
     }
@@ -21,17 +21,17 @@ class EloquentRecord implements Record
         return $this->model;
     }
 
-    public function get( $field, $default = '' )
+    public function get($field, $default = '')
     {
         // do not use relations as attributes
-        $value = $this->model->getAttributeValue( $field );
+        $value = $this->model->getAttributeValue($field);
 
-        return value_or_null( $value ) ?: $default;
+        return value_or_null($value) ?: $default;
     }
 
-    public function set( $field, $value )
+    public function set($field, $value)
     {
-        $this->model->setAttribute( $field, $value );
+        $this->model->setAttribute($field, $value);
     }
 
     public function getKey()
@@ -41,9 +41,9 @@ class EloquentRecord implements Record
 
     public function valid()
     {
-        $valid = $this->model->getAttributeValue( 'valid' );
+        $valid = $this->model->getAttributeValue('valid');
 
-        return is_bool( $valid ) ? $valid : true;
+        return is_bool($valid) ? $valid : true;
     }
 
     public function toArray()

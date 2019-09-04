@@ -2,13 +2,13 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Writers;
 
-use Illuminate\Database\Query\Builder;
-use RodrigoPedra\RecordProcessor\Contracts\ConfigurableWriter;
-use RodrigoPedra\RecordProcessor\Helpers\Configurator;
-use RodrigoPedra\RecordProcessor\Helpers\Writers\WriterConfigurator;
-use RodrigoPedra\RecordProcessor\Traits\CountsLines;
-use RodrigoPedra\RecordProcessor\Traits\NoOutput;
 use RuntimeException;
+use Illuminate\Database\Query\Builder;
+use RodrigoPedra\RecordProcessor\Traits\NoOutput;
+use RodrigoPedra\RecordProcessor\Traits\CountsLines;
+use RodrigoPedra\RecordProcessor\Helpers\Configurator;
+use RodrigoPedra\RecordProcessor\Contracts\ConfigurableWriter;
+use RodrigoPedra\RecordProcessor\Helpers\Writers\WriterConfigurator;
 use function RodrigoPedra\RecordProcessor\is_associative_array;
 
 class QueryBuilderWriter implements ConfigurableWriter
@@ -21,7 +21,7 @@ class QueryBuilderWriter implements ConfigurableWriter
     /** @var  string */
     protected $keyName;
 
-    public function __construct( Builder $queryBuilder )
+    public function __construct(Builder $queryBuilder)
     {
         $this->writer = $queryBuilder;
     }
@@ -44,14 +44,14 @@ class QueryBuilderWriter implements ConfigurableWriter
         //
     }
 
-    public function append( $content )
+    public function append($content)
     {
-        if (!is_associative_array( $content )) {
-            throw new RuntimeException( 'content for QueryBuilderWriter should be an associative array' );
+        if (! is_associative_array($content)) {
+            throw new RuntimeException('content for QueryBuilderWriter should be an associative array');
         }
 
-        if (!$this->writer->insert( $content )) {
-            throw new RuntimeException( 'Could not write Query\Builder record' );
+        if (! $this->writer->insert($content)) {
+            throw new RuntimeException('Could not write Query\Builder record');
         }
 
         $this->incrementLineCount();
@@ -62,7 +62,7 @@ class QueryBuilderWriter implements ConfigurableWriter
      */
     public function getConfigurableMethods()
     {
-        return [ 'getQueryBuilder' ];
+        return ['getQueryBuilder'];
     }
 
     /**
@@ -70,6 +70,6 @@ class QueryBuilderWriter implements ConfigurableWriter
      */
     public function createConfigurator()
     {
-        return new WriterConfigurator( $this, false, false );
+        return new WriterConfigurator($this, false, false);
     }
 }

@@ -12,16 +12,15 @@ class ExampleLaravelBuilderParser implements RecordParser
     /**
      * Generates Record objects from raw data
      *
-     * @param  Reader $reader
+     * @param  Reader  $reader
      * @param  mixed  $rawContent
-     *
      * @return Record
      */
-    public function parseRecord( Reader $reader, $rawContent )
+    public function parseRecord(Reader $reader, $rawContent)
     {
-        return new ExampleRecord( [
-            'name'  => $rawContent->name,
+        return new ExampleRecord([
+            'name' => $rawContent->name,
             'email' => $rawContent->email,
-        ] );
+        ]);
     }
 }

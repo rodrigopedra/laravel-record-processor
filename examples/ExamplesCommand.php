@@ -4,8 +4,8 @@ namespace RodrigoPedra\LaravelRecordProcessor\Examples;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder;
-use RodrigoPedra\RecordProcessor\Examples\ExamplesCommand as BaseExamplesCommand;
 use RodrigoPedra\RecordProcessor\Helpers\Writers\WriterConfigurator;
+use RodrigoPedra\RecordProcessor\Examples\ExamplesCommand as BaseExamplesCommand;
 
 class ExamplesCommand extends BaseExamplesCommand
 {
@@ -25,62 +25,60 @@ class ExamplesCommand extends BaseExamplesCommand
     }
 
     /**
-     * @param  ProcessorBuilder $builder
-     * @param  string           $reader
-     *
+     * @param  ProcessorBuilder  $builder
+     * @param  string  $reader
      * @return mixed
      */
-    protected function readFrom( $builder, $reader )
+    protected function readFrom($builder, $reader)
     {
         if ($reader === 'eloquent') {
-            $builder->usingParser( new ExampleLaravelBuilderParser );
+            $builder->usingParser(new ExampleLaravelBuilderParser);
 
             $eloquentBuilder = $this->makeEloquentBuilder();
-            $eloquentBuilder->take( 10 );
+            $eloquentBuilder->take(10);
 
-            return $builder->readFromEloquent( $eloquentBuilder );
+            return $builder->readFromEloquent($eloquentBuilder);
         }
 
         if ($reader === 'query-builder') {
-            $builder->usingParser( new ExampleLaravelBuilderParser );
+            $builder->usingParser(new ExampleLaravelBuilderParser);
 
             $eloquentBuilder = $this->makeEloquentBuilder();
-            $eloquentBuilder->take( 10 );
-            $eloquentBuilder->select( [ 'name', 'email' ] );
+            $eloquentBuilder->take(10);
+            $eloquentBuilder->select(['name', 'email']);
 
-            return $builder->readFromQueryBuilder( $eloquentBuilder->getQuery() );
+            return $builder->readFromQueryBuilder($eloquentBuilder->getQuery());
         }
 
-        return parent::readFrom( $builder, $reader );
+        return parent::readFrom($builder, $reader);
     }
 
     /**
-     * @param  ProcessorBuilder $builder
-     * @param  string           $writer
-     *
+     * @param  ProcessorBuilder  $builder
+     * @param  string  $writer
      * @return mixed
      */
-    protected function writeTo( $builder, $writer )
+    protected function writeTo($builder, $writer)
     {
         if ($writer === 'eloquent') {
             $eloquentBuilder = $this->makeEloquentBuilder();
 
-            return $builder->writeToEloquent( $eloquentBuilder, function ( WriterConfigurator $configurator ) {
-                $configurator->outputModels( true );
-                $configurator->setRecordFormatter( new ExampleLaravelBuilderFormatter );
-            } );
+            return $builder->writeToEloquent($eloquentBuilder, function (WriterConfigurator $configurator) {
+                $configurator->outputModels(true);
+                $configurator->setRecordFormatter(new ExampleLaravelBuilderFormatter);
+            });
         }
 
         if ($writer === 'query-builder') {
             $eloquentBuilder = $this->makeEloquentBuilder();
 
-            return $builder->writeToQueryBuilder( $eloquentBuilder->getQuery() );
+            return $builder->writeToQueryBuilder($eloquentBuilder->getQuery());
         }
 
-        return parent::writeTo( $builder, $writer );
+        return parent::writeTo($builder, $writer);
     }
 
-    protected function storagePath( $file )
+    protected function storagePath($file)
     {
         return __DIR__ . '/../storage/' . $file;
     }
@@ -91,11 +89,11 @@ class ExamplesCommand extends BaseExamplesCommand
 
         $capsule = new Capsule;
 
-        $capsule->addConnection( [
-            'driver'   => 'sqlite',
-            'database' => $this->storagePath( 'database.sqlite' ),
-            'prefix'   => '',
-        ] );
+        $capsule->addConnection([
+            'driver' => 'sqlite',
+            'database' => $this->storagePath('database.sqlite'),
+            'prefix' => '',
+        ]);
 
         $capsule->setAsGlobal();
 

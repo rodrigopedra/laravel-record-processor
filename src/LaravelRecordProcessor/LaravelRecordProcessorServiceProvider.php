@@ -9,19 +9,21 @@ class LaravelRecordProcessorServiceProvider extends ServiceProvider
 {
     protected $defer = true;
 
-    public function boot() { }
+    public function boot()
+    {
+    }
 
     public function register()
     {
-        $this->app->bind( ProcessorBuilder::class, function () {
+        $this->app->bind(ProcessorBuilder::class, function () {
             $processor = new ProcessorBuilder;
 
-            $processor->setLogger( $this->app->get( 'log' ) );
+            $processor->setLogger($this->app->get('log'));
 
             return $processor;
-        } );
+        });
 
-        $this->app->alias( ProcessorBuilder::class, BaseProcessorBuilder::class );
+        $this->app->alias(ProcessorBuilder::class, BaseProcessorBuilder::class);
     }
 
     public function provides()

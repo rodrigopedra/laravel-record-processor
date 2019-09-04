@@ -3,13 +3,13 @@
 
 require __DIR__ . '/vendor/autoload.php';
 
-use RodrigoPedra\LaravelRecordProcessor\Examples\ExamplesCommand;
-use RodrigoPedra\RecordProcessor\Examples\DownloadCommand;
 use Symfony\Component\Console\Application;
+use RodrigoPedra\RecordProcessor\Examples\DownloadCommand;
+use RodrigoPedra\LaravelRecordProcessor\Examples\ExamplesCommand;
 
 $application = new Application();
 
-$application->add( new ExamplesCommand );
-$application->add( new DownloadCommand );
+$application->add(new ExamplesCommand);
+$application->add(new DownloadCommand);
 
 $application->run();

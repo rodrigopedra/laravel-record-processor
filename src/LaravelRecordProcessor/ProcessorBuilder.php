@@ -5,75 +5,75 @@ namespace RodrigoPedra\LaravelRecordProcessor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use RodrigoPedra\LaravelRecordProcessor\Readers\EloquentReader;
-use RodrigoPedra\LaravelRecordProcessor\Readers\QueryBuilderReader;
-use RodrigoPedra\LaravelRecordProcessor\Records\Formatter\EloquentRecordFormatter;
-use RodrigoPedra\LaravelRecordProcessor\Records\Parsers\EloquentRecordParser;
-use RodrigoPedra\LaravelRecordProcessor\Stages\DownloadFileResponse;
 use RodrigoPedra\LaravelRecordProcessor\Writers\EloquentWriter;
+use RodrigoPedra\LaravelRecordProcessor\Readers\QueryBuilderReader;
 use RodrigoPedra\LaravelRecordProcessor\Writers\QueryBuilderWriter;
-use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseBaseProcessorBuilder;
-use RodrigoPedra\RecordProcessor\Records\Formatter\ArrayRecordFormatter;
 use RodrigoPedra\RecordProcessor\Records\Parsers\ArrayRecordParser;
+use RodrigoPedra\LaravelRecordProcessor\Stages\DownloadFileResponse;
+use RodrigoPedra\RecordProcessor\Records\Formatter\ArrayRecordFormatter;
+use RodrigoPedra\LaravelRecordProcessor\Records\Parsers\EloquentRecordParser;
+use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseBaseProcessorBuilder;
+use RodrigoPedra\LaravelRecordProcessor\Records\Formatter\EloquentRecordFormatter;
 
 class ProcessorBuilder extends BaseBaseProcessorBuilder
 {
-    public function readFromEloquent( Builder $eloquentBuilder, callable $configurator = null )
+    public function readFromEloquent(Builder $eloquentBuilder, callable $configurator = null)
     {
-        $this->reader = new EloquentReader( $eloquentBuilder );
+        $this->reader = new EloquentReader($eloquentBuilder);
 
-        if (is_null( $this->recordParser )) {
-            $this->usingParser( new EloquentRecordParser );
+        if (is_null($this->recordParser)) {
+            $this->usingParser(new EloquentRecordParser);
         }
 
-        $this->configureReader( $this->reader, $configurator );
+        $this->configureReader($this->reader, $configurator);
 
         return $this;
     }
 
-    public function readFromQueryBuilder( QueryBuilder $queryBuilder, callable $configurator = null )
+    public function readFromQueryBuilder(QueryBuilder $queryBuilder, callable $configurator = null)
     {
-        $this->reader = new QueryBuilderReader( $queryBuilder );
+        $this->reader = new QueryBuilderReader($queryBuilder);
 
-        if (is_null( $this->recordParser )) {
-            $this->usingParser( new ArrayRecordParser );
+        if (is_null($this->recordParser)) {
+            $this->usingParser(new ArrayRecordParser);
         }
 
-        $this->configureReader( $this->reader, $configurator );
+        $this->configureReader($this->reader, $configurator);
 
         return $this;
     }
 
-    public function writeToEloquent( Builder $eloquentBuilder, callable $configurator = null )
+    public function writeToEloquent(Builder $eloquentBuilder, callable $configurator = null)
     {
-        $writer = new EloquentWriter( $eloquentBuilder );
+        $writer = new EloquentWriter($eloquentBuilder);
 
-        if (is_null( $this->recordFormatter )) {
+        if (is_null($this->recordFormatter)) {
             $model = $eloquentBuilder->getModel();
 
-            $this->usingFormatter( new EloquentRecordFormatter( $model ) );
+            $this->usingFormatter(new EloquentRecordFormatter($model));
         }
 
-        $this->addCompiler( $writer, $this->configureWriter( $writer, $configurator ) );
+        $this->addCompiler($writer, $this->configureWriter($writer, $configurator));
 
         return $this;
     }
 
-    public function writeToQueryBuilder( QueryBuilder $queryBuilder, callable $configurator = null )
+    public function writeToQueryBuilder(QueryBuilder $queryBuilder, callable $configurator = null)
     {
-        $writer = new QueryBuilderWriter( $queryBuilder );
+        $writer = new QueryBuilderWriter($queryBuilder);
 
-        if (is_null( $this->recordFormatter )) {
-            $this->usingFormatter( new ArrayRecordFormatter );
+        if (is_null($this->recordFormatter)) {
+            $this->usingFormatter(new ArrayRecordFormatter);
         }
 
-        $this->addCompiler( $writer, $this->configureWriter( $writer, $configurator ) );
+        $this->addCompiler($writer, $this->configureWriter($writer, $configurator));
 
         return $this;
     }
 
-    public function downloadFileResponse( $outputFilename = '', $deleteFileAfterDownload = false )
+    public function downloadFileResponse($outputFilename = '', $deleteFileAfterDownload = false)
     {
-        $this->addStage( new DownloadFileResponse( $outputFilename, $deleteFileAfterDownload ) );
+        $this->addStage(new DownloadFileResponse($outputFilename, $deleteFileAfterDownload));
 
         return $this;
     }

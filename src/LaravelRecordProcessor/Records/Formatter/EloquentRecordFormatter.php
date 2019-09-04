@@ -4,26 +4,26 @@ namespace RodrigoPedra\LaravelRecordProcessor\Records\Formatter;
 
 use Illuminate\Database\Eloquent\Model;
 use RodrigoPedra\RecordProcessor\Contracts\Record;
-use RodrigoPedra\RecordProcessor\Contracts\RecordFormatter;
 use RodrigoPedra\RecordProcessor\Contracts\Writer;
+use RodrigoPedra\RecordProcessor\Contracts\RecordFormatter;
 
 class EloquentRecordFormatter implements RecordFormatter
 {
     /** @var Model */
     protected $model;
 
-    public function __construct( Model $model )
+    public function __construct(Model $model)
     {
         $this->model = $model;
     }
 
-    public function formatRecord( Writer $writer, Record $record )
+    public function formatRecord(Writer $writer, Record $record)
     {
-        if (!$record->valid()) {
+        if (! $record->valid()) {
             return false;
         }
 
-        $writer->append( $this->model->newInstance( $record->toArray() ) );
+        $writer->append($this->model->newInstance($record->toArray()));
 
         return true;
     }
