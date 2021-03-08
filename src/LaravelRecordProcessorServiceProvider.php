@@ -2,21 +2,16 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseProcessorBuilder;
 
-class LaravelRecordProcessorServiceProvider extends ServiceProvider
+class LaravelRecordProcessorServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    protected $defer = true;
-
-    public function boot()
-    {
-    }
-
     public function register()
     {
         $this->app->bind(ProcessorBuilder::class, function () {
-            $processor = new ProcessorBuilder;
+            $processor = new ProcessorBuilder();
 
             $processor->setLogger($this->app->get('log'));
 
@@ -26,7 +21,7 @@ class LaravelRecordProcessorServiceProvider extends ServiceProvider
         $this->app->alias(ProcessorBuilder::class, BaseProcessorBuilder::class);
     }
 
-    public function provides()
+    public function provides(): array
     {
         return [
             ProcessorBuilder::class,

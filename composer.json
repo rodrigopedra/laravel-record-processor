@@ -6,6 +6,7 @@
     "record processor",
     "php"
   ],
+  "type": "library",
   "license": "MIT",
   "authors": [
     {
@@ -14,23 +15,29 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "psr/log": "^1.0",
-    "rodrigopedra/record-processor": "^0.9",
-    "illuminate/support": "^5.4|^6.0",
-    "illuminate/contracts": "^5.4|^6.0",
-    "illuminate/database": "^5.4|^6.0",
-    "illuminate/http": "^5.4|^6.0"
+    "php": "^7.4|^8.0",
+    "rodrigopedra/record-processor": "^1.0",
+    "illuminate/contracts": "^7.0|^8.0",
+    "illuminate/database": "^7.0|^8.0",
+    "illuminate/support": "^7.0|^8.0"
+  },
+  "require-dev": {
+    "symfony/console": "^5.1",
+    "symfony/http-foundation": "^5.1",
+    "symfony/process": "^5.1",
+    "symfony/var-dumper": "^5.1"
   },
   "autoload": {
     "psr-4": {
-      "RodrigoPedra\\LaravelRecordProcessor\\": "src/LaravelRecordProcessor/",
+      "RodrigoPedra\\LaravelRecordProcessor\\": "src/",
       "RodrigoPedra\\LaravelRecordProcessor\\Examples\\": "examples/"
     }
   },
-  "require-dev": {
-    "symfony/console": "^3.3|~4.0|~4.1|~4.2|~4.3",
-    "symfony/var-dumper": "^3.3|~4.0|~4.1|~4.2|~4.3"
+  "config": {
+    "sort-packages": true
+  },
+  "suggest": {
+    "symfony/http-foundation": "to use download file response"
   },
   "extra": {
     "laravel": {

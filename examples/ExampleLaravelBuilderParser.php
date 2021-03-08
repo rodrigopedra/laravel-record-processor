@@ -10,15 +10,13 @@ use RodrigoPedra\RecordProcessor\Examples\RecordObjects\ExampleRecord;
 class ExampleLaravelBuilderParser implements RecordParser
 {
     /**
-     * Generates Record objects from raw data
-     *
-     * @param  Reader  $reader
-     * @param  mixed  $rawContent
-     * @return Record
+     * @param  \RodrigoPedra\RecordProcessor\Contracts\Reader  $reader
+     * @param  \Illuminate\Database\Eloquent\Model|\stdClass  $rawContent
+     * @return \RodrigoPedra\RecordProcessor\Contracts\Record
      */
-    public function parseRecord(Reader $reader, $rawContent)
+    public function parseRecord(Reader $reader, $rawContent): Record
     {
-        return new ExampleRecord([
+        return new ExampleRecord($rawContent->name, [
             'name' => $rawContent->name,
             'email' => $rawContent->email,
         ]);

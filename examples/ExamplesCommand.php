@@ -3,36 +3,38 @@
 namespace RodrigoPedra\LaravelRecordProcessor\Examples;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
+use Illuminate\Database\Eloquent\Builder;
+use RodrigoPedra\LaravelRecordProcessor\Configurators\Serializers\EloquentSerializerConfigurator;
 use RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder;
-use RodrigoPedra\RecordProcessor\Helpers\Writers\WriterConfigurator;
 use RodrigoPedra\RecordProcessor\Examples\ExamplesCommand as BaseExamplesCommand;
+use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseProcessorBuilder;
 
 class ExamplesCommand extends BaseExamplesCommand
 {
-    protected function getAvailableReaders()
+    protected function availableParsers(): string
     {
-        return parent::getAvailableReaders() . '|eloquent|query-builder';
+        return parent::availableParsers() . '|eloquent|query-builder';
     }
 
-    protected function getAvailableWriters()
+    protected function availableSerializers(): string
     {
-        return parent::getAvailableWriters() . '|eloquent|query-builder';
+        return parent::availableSerializers() . '|eloquent|query-builder';
     }
 
-    protected function makeBuilder()
+    protected function makeBuilder(): ProcessorBuilder
     {
-        return new ProcessorBuilder;
+        return new ProcessorBuilder();
     }
 
     /**
-     * @param  ProcessorBuilder  $builder
+     * @param  \RodrigoPedra\RecordProcessor\ProcessorBuilder&\RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder  $builder
      * @param  string  $reader
-     * @return mixed
+     * @return \RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder
      */
-    protected function readFrom($builder, $reader)
+    protected function readFrom(BaseProcessorBuilder $builder, string $reader): BaseProcessorBuilder
     {
         if ($reader === 'eloquent') {
-            $builder->usingParser(new ExampleLaravelBuilderParser);
+            $builder->withRecordParser(new ExampleLaravelBuilderParser());
 
             $eloquentBuilder = $this->makeEloquentBuilder();
             $eloquentBuilder->take(10);
@@ -41,7 +43,7 @@ class ExamplesCommand extends BaseExamplesCommand
         }
 
         if ($reader === 'query-builder') {
-            $builder->usingParser(new ExampleLaravelBuilderParser);
+            $builder->withRecordParser(new ExampleLaravelBuilderParser());
 
             $eloquentBuilder = $this->makeEloquentBuilder();
             $eloquentBuilder->take(10);
@@ -54,31 +56,31 @@ class ExamplesCommand extends BaseExamplesCommand
     }
 
     /**
-     * @param  ProcessorBuilder  $builder
-     * @param  string  $writer
-     * @return mixed
+     * @param  \RodrigoPedra\RecordProcessor\ProcessorBuilder&\RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder  $builder
+     * @param  string  $serializer
+     * @return \RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder
      */
-    protected function writeTo($builder, $writer)
+    protected function serializeTo(BaseProcessorBuilder $builder, string $serializer): BaseProcessorBuilder
     {
-        if ($writer === 'eloquent') {
+        if ($serializer === 'eloquent') {
             $eloquentBuilder = $this->makeEloquentBuilder();
 
-            return $builder->writeToEloquent($eloquentBuilder, function (WriterConfigurator $configurator) {
-                $configurator->outputModels(true);
-                $configurator->setRecordFormatter(new ExampleLaravelBuilderFormatter);
+            return $builder->writeToEloquent($eloquentBuilder, function (EloquentSerializerConfigurator $configurator) {
+                $configurator->withRecordSerializer(new ExampleLaravelBuilderSerializer());
+                $configurator->withShouldOutputModels(true);
             });
         }
 
-        if ($writer === 'query-builder') {
+        if ($serializer === 'query-builder') {
             $eloquentBuilder = $this->makeEloquentBuilder();
 
             return $builder->writeToQueryBuilder($eloquentBuilder->getQuery());
         }
 
-        return parent::writeTo($builder, $writer);
+        return parent::serializeTo($builder, $serializer);
     }
 
-    protected function storagePath($file)
+    protected function storagePath(string $file): string
     {
         return __DIR__ . '/../storage/' . $file;
     }
@@ -87,7 +89,7 @@ class ExamplesCommand extends BaseExamplesCommand
     {
         $this->makeConnection();
 
-        $capsule = new Capsule;
+        $capsule = new Capsule();
 
         $capsule->addConnection([
             'driver' => 'sqlite',
@@ -100,12 +102,10 @@ class ExamplesCommand extends BaseExamplesCommand
         $capsule->bootEloquent();
     }
 
-    protected function makeEloquentBuilder()
+    public function makeEloquentBuilder(): Builder
     {
         $this->startLaravelConnection();
 
-        $model = new UserEloquentModel;
-
-        return $model->newQuery();
+        return UserEloquentModel::query();
     }
 }
