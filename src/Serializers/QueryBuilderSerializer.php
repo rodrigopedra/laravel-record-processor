@@ -5,7 +5,6 @@ namespace RodrigoPedra\LaravelRecordProcessor\Serializers;
 use Illuminate\Database\Query\Builder;
 use RodrigoPedra\LaravelRecordProcessor\Configurators\Serializers\QueryBuilderSerializerConfigurator;
 use RodrigoPedra\RecordProcessor\Concerns\CountsLines;
-use RodrigoPedra\RecordProcessor\Concerns\NoOutput;
 use RodrigoPedra\RecordProcessor\Configurators\Serializers\SerializerConfigurator;
 use RodrigoPedra\RecordProcessor\Contracts\Serializer;
 use RodrigoPedra\RecordProcessor\RecordSerializers\ArrayRecordSerializer;
@@ -13,7 +12,6 @@ use RodrigoPedra\RecordProcessor\RecordSerializers\ArrayRecordSerializer;
 class QueryBuilderSerializer implements Serializer
 {
     use CountsLines;
-    use NoOutput;
 
     protected Builder $queryBuilder;
     protected SerializerConfigurator $configurator;
@@ -50,6 +48,11 @@ class QueryBuilderSerializer implements Serializer
         }
 
         $this->incrementLineCount();
+    }
+
+    public function output()
+    {
+        return null;
     }
 
     public function configurator(): QueryBuilderSerializerConfigurator

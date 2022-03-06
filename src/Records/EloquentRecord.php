@@ -19,12 +19,12 @@ class EloquentRecord implements Record
         return $this->model;
     }
 
-    public function key()
+    public function key(): mixed
     {
         return $this->model->getKey();
     }
 
-    public function field(string $field)
+    public function field(string $field): mixed
     {
         return $this->model->getAttribute($field);
     }

@@ -85,7 +85,7 @@ class EloquentSerializer implements Serializer
         return new EloquentRecordSerializer($this->builder);
     }
 
-    protected function saveModel(Model $model)
+    protected function saveModel(Model $model): Model
     {
         // existing record fetched from database
         if ($model->exists) {
