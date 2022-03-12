@@ -16,7 +16,7 @@
   ],
   "require": {
     "php": "^8.0",
-    "rodrigopedra/record-processor": "^2.0",
+    "rodrigopedra/record-processor": "^2.1",
     "illuminate/contracts": "^9.0",
     "illuminate/database": "^9.0",
     "illuminate/support": "^9.0"
