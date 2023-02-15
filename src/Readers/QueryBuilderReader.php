@@ -28,7 +28,13 @@ class QueryBuilderReader implements Reader
     {
         $this->lineCount = 0;
 
-        $this->withInnerIterator($this->queryBuilder->cursor()->getIterator());
+        $iterator = $this->queryBuilder->cursor()->getIterator();
+        $iterator = match (true) {
+            $iterator instanceof \Iterator => $iterator,
+            default => new \IteratorIterator($iterator),
+        };
+
+        $this->withInnerIterator($iterator);
     }
 
     public function close()

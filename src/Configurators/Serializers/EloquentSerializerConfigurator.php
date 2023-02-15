@@ -13,7 +13,7 @@ class EloquentSerializerConfigurator extends SerializerConfigurator
 {
     public function __construct(EloquentSerializer $serializer)
     {
-        parent::__construct($serializer, false, false);
+        parent::__construct($serializer);
     }
 
     public function builder(): Builder

@@ -13,7 +13,7 @@ class QueryBuilderSerializerConfigurator extends SerializerConfigurator
 {
     public function __construct(QueryBuilderSerializer $serializer)
     {
-        parent::__construct($serializer, false, false);
+        parent::__construct($serializer);
     }
 
     public function queryBuilder(): Builder

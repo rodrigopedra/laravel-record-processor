@@ -26,7 +26,14 @@ class EloquentReader implements Reader
     public function open()
     {
         $this->lineCount = 0;
-        $this->withInnerIterator($this->builder->cursor()->getIterator());
+
+        $iterator = $this->builder->cursor()->getIterator();
+        $iterator = match (true) {
+            $iterator instanceof \Iterator => $iterator,
+            default => new \IteratorIterator($iterator),
+        };
+
+        $this->withInnerIterator($iterator);
     }
 
     public function close()
