@@ -21,7 +21,7 @@ class ExampleLaravelBuilderSerializer implements RecordSerializer
             $data = [
                 'name' => $record->key(),
                 'email' => \implode(', ',
-                    \array_map(fn (Record $record) => $record->field('email'), $record->records())),
+                    \array_map(static fn (Record $record) => $record->field('email'), $record->records())),
             ];
         }
 

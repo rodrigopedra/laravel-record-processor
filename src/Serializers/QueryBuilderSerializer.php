@@ -27,17 +27,17 @@ class QueryBuilderSerializer implements Serializer
         return $this->queryBuilder;
     }
 
-    public function open()
+    public function open(): void
     {
         $this->lineCount = 0;
     }
 
-    public function close()
+    public function close(): void
     {
         //
     }
 
-    public function append($content)
+    public function append($content): void
     {
         if (! $this->isAssociative($content)) {
             throw new \RuntimeException('Content for QueryBuilderWriter should be an associative array');
@@ -50,7 +50,7 @@ class QueryBuilderSerializer implements Serializer
         $this->incrementLineCount();
     }
 
-    public function output()
+    public function output(): null
     {
         return null;
     }
@@ -67,10 +67,6 @@ class QueryBuilderSerializer implements Serializer
 
     protected function isAssociative(array $array): bool
     {
-        foreach ($array as $key => $value) {
-            return \is_string($key);
-        }
-
-        return false;
+        return ! \array_is_list($array);
     }
 }

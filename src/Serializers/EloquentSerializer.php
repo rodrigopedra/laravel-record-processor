@@ -39,19 +39,19 @@ class EloquentSerializer implements Serializer
         return $this;
     }
 
-    public function open()
+    public function open(): void
     {
         $this->lineCount = 0;
 
         $this->results = $this->shouldOutputModels ? Collection::make() : null;
     }
 
-    public function close()
+    public function close(): void
     {
         //
     }
 
-    public function append($content)
+    public function append($content): void
     {
         if (! $content instanceof Model) {
             throw new \RuntimeException('Content for EloquentSerializer should be an Eloquent model instance');

@@ -85,7 +85,7 @@ class ExamplesCommand extends BaseExamplesCommand
         return __DIR__ . '/../storage/' . $file;
     }
 
-    protected function startLaravelConnection()
+    protected function startLaravelConnection(): void
     {
         $this->makeConnection();
 

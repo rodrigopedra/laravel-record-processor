@@ -24,7 +24,7 @@ class QueryBuilderReader implements Reader
         $this->configurator = new QueryBuilderReaderConfigurator($this);
     }
 
-    public function open()
+    public function open(): void
     {
         $this->lineCount = 0;
 
@@ -37,7 +37,7 @@ class QueryBuilderReader implements Reader
         $this->withInnerIterator($iterator);
     }
 
-    public function close()
+    public function close(): void
     {
         $this->withInnerIterator(null);
     }

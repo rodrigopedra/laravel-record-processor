@@ -23,7 +23,7 @@ class EloquentReader implements Reader
         $this->configurator = new EloquentReaderConfigurator($this);
     }
 
-    public function open()
+    public function open(): void
     {
         $this->lineCount = 0;
 
@@ -36,7 +36,7 @@ class EloquentReader implements Reader
         $this->withInnerIterator($iterator);
     }
 
-    public function close()
+    public function close(): void
     {
         $this->withInnerIterator(null);
     }

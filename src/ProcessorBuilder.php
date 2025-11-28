@@ -8,7 +8,6 @@ use RodrigoPedra\LaravelRecordProcessor\Readers\EloquentReader;
 use RodrigoPedra\LaravelRecordProcessor\Readers\QueryBuilderReader;
 use RodrigoPedra\LaravelRecordProcessor\Serializers\EloquentSerializer;
 use RodrigoPedra\LaravelRecordProcessor\Serializers\QueryBuilderSerializer;
-use RodrigoPedra\LaravelRecordProcessor\Stages\DownloadFileResponse;
 use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseBaseProcessorBuilder;
 
 class ProcessorBuilder extends BaseBaseProcessorBuilder
@@ -47,13 +46,6 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
 
         $this->configureSerializer($serializer, $configurator);
         $this->addSerializer($serializer);
-
-        return $this;
-    }
-
-    public function downloadFileResponse($outputFilename = '', $deleteFileAfterDownload = false): self
-    {
-        $this->addStage(new DownloadFileResponse($outputFilename, $deleteFileAfterDownload));
 
         return $this;
     }

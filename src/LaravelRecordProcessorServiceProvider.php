@@ -8,7 +8,7 @@ use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseProcessorBuilder;
 
 class LaravelRecordProcessorServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->bind(ProcessorBuilder::class, function () {
             $processor = new ProcessorBuilder();
