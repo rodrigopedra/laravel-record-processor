@@ -5,14 +5,11 @@ namespace RodrigoPedra\LaravelRecordProcessor\Records;
 use Illuminate\Database\Eloquent\Model;
 use RodrigoPedra\RecordProcessor\Contracts\Record;
 
-class EloquentRecord implements Record
+final class EloquentRecord implements Record
 {
-    protected Model $model;
-
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
+    public function __construct(
+        private readonly Model $model,
+    ) {}
 
     public function model(): Model
     {
@@ -24,9 +21,13 @@ class EloquentRecord implements Record
         return $this->model->getKey();
     }
 
-    public function field(string $field): mixed
+    public function field(string $field, $default = null)
     {
-        return $this->model->getAttribute($field);
+        if (! $this->model->hasAttribute($field)) {
+            return \value($default);
+        }
+
+        return $this->model->getAttributeValue($field);
     }
 
     public function isValid(): bool

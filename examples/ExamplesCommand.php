@@ -30,13 +30,14 @@ class ExamplesCommand extends BaseExamplesCommand
      * @param  \RodrigoPedra\RecordProcessor\ProcessorBuilder&\RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder  $builder
      * @param  string  $reader
      * @return \RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder
+     * @throws \Throwable
      */
     protected function readFrom(BaseProcessorBuilder $builder, string $reader): BaseProcessorBuilder
     {
         if ($reader === 'eloquent') {
             $builder->withRecordParser(new ExampleLaravelBuilderParser());
 
-            $eloquentBuilder = $this->makeEloquentBuilder();
+            $eloquentBuilder = $this->makeEloquentBuilder('input.sqlite', 'input');
             $eloquentBuilder->take(10);
 
             return $builder->readFromEloquent($eloquentBuilder);
@@ -45,7 +46,7 @@ class ExamplesCommand extends BaseExamplesCommand
         if ($reader === 'query-builder') {
             $builder->withRecordParser(new ExampleLaravelBuilderParser());
 
-            $eloquentBuilder = $this->makeEloquentBuilder();
+            $eloquentBuilder = $this->makeEloquentBuilder('input.sqlite', 'input');
             $eloquentBuilder->take(10);
             $eloquentBuilder->select(['name', 'email']);
 
@@ -59,11 +60,12 @@ class ExamplesCommand extends BaseExamplesCommand
      * @param  \RodrigoPedra\RecordProcessor\ProcessorBuilder&\RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder  $builder
      * @param  string  $serializer
      * @return \RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder
+     * @throws \Throwable
      */
     protected function serializeTo(BaseProcessorBuilder $builder, string $serializer): BaseProcessorBuilder
     {
         if ($serializer === 'eloquent') {
-            $eloquentBuilder = $this->makeEloquentBuilder();
+            $eloquentBuilder = $this->makeEloquentBuilder('output.sqlite');
 
             return $builder->writeToEloquent($eloquentBuilder, function (EloquentSerializerConfigurator $configurator) {
                 $configurator->withRecordSerializer(new ExampleLaravelBuilderSerializer());
@@ -72,7 +74,7 @@ class ExamplesCommand extends BaseExamplesCommand
         }
 
         if ($serializer === 'query-builder') {
-            $eloquentBuilder = $this->makeEloquentBuilder();
+            $eloquentBuilder = $this->makeEloquentBuilder('output.sqlite');
 
             return $builder->writeToQueryBuilder($eloquentBuilder->getQuery());
         }
@@ -80,32 +82,33 @@ class ExamplesCommand extends BaseExamplesCommand
         return parent::serializeTo($builder, $serializer);
     }
 
-    protected function storagePath(string $file): string
+    /**
+     * @throws \Throwable
+     */
+    public function makeEloquentBuilder(string $filename, string $connection = 'default'): Builder
     {
-        return __DIR__ . '/../storage/' . $file;
+        $this->startLaravelConnection($filename, $connection);
+
+        return (new UserEloquentModel())->setConnection($connection)->newQuery();
     }
 
-    protected function startLaravelConnection(): void
+    /**
+     * @throws \Throwable
+     */
+    protected function startLaravelConnection(string $filename, string $connection): void
     {
-        $this->makeConnection();
+        $this->makeConnection($filename);
 
         $capsule = new Capsule();
 
         $capsule->addConnection([
             'driver' => 'sqlite',
-            'database' => $this->storagePath('database.sqlite'),
+            'database' => $this->storagePath($filename),
             'prefix' => '',
-        ]);
+        ], $connection);
 
         $capsule->setAsGlobal();
 
         $capsule->bootEloquent();
-    }
-
-    public function makeEloquentBuilder(): Builder
-    {
-        $this->startLaravelConnection();
-
-        return UserEloquentModel::query();
     }
 }

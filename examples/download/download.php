@@ -12,7 +12,7 @@ $storagePath = __DIR__ . '/../../storage/';
 $command = new ExamplesCommand();
 
 $processor = (new ProcessorBuilder())
-    ->readFromEloquent($command->makeEloquentBuilder())
+    ->readFromEloquent($command->makeEloquentBuilder('input.sqlite'))
     ->serializeToExcelFile($storagePath . 'output.xlsx', function (SerializerConfigurator $configurator) {
         $configurator->withHeader(['name', 'email']);
     })

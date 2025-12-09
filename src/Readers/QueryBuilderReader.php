@@ -10,17 +10,16 @@ use RodrigoPedra\RecordProcessor\Contracts\Reader;
 use RodrigoPedra\RecordProcessor\Contracts\RecordParser;
 use RodrigoPedra\RecordProcessor\RecordParsers\ArrayRecordParser;
 
-class QueryBuilderReader implements Reader
+final class QueryBuilderReader implements Reader
 {
     use CountsLines;
     use HasInnerIterator;
 
-    protected Builder $queryBuilder;
-    protected QueryBuilderReaderConfigurator $configurator;
+    private readonly QueryBuilderReaderConfigurator $configurator;
 
-    public function __construct(Builder $eloquentBuilder)
-    {
-        $this->queryBuilder = $eloquentBuilder;
+    public function __construct(
+        private readonly Builder $queryBuilder,
+    ) {
         $this->configurator = new QueryBuilderReaderConfigurator($this);
     }
 

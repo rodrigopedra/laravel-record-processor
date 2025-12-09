@@ -9,17 +9,16 @@ use RodrigoPedra\RecordProcessor\Concerns\CountsLines;
 use RodrigoPedra\RecordProcessor\Concerns\Readers\HasInnerIterator;
 use RodrigoPedra\RecordProcessor\Contracts\Reader;
 
-class EloquentReader implements Reader
+final class EloquentReader implements Reader
 {
     use CountsLines;
     use HasInnerIterator;
 
-    protected Builder $builder;
-    protected EloquentReaderConfigurator $configurator;
+    private readonly EloquentReaderConfigurator $configurator;
 
-    public function __construct(Builder $eloquentBuilder)
-    {
-        $this->builder = $eloquentBuilder;
+    public function __construct(
+        private readonly Builder $builder,
+    ) {
         $this->configurator = new EloquentReaderConfigurator($this);
     }
 

@@ -8,14 +8,11 @@ use RodrigoPedra\RecordProcessor\Contracts\Record;
 use RodrigoPedra\RecordProcessor\Contracts\RecordSerializer;
 use RodrigoPedra\RecordProcessor\Contracts\Serializer;
 
-class EloquentRecordSerializer implements RecordSerializer
+final class EloquentRecordSerializer implements RecordSerializer
 {
-    protected Builder $builder;
-
-    public function __construct(Builder $builder)
-    {
-        $this->builder = $builder;
-    }
+    public function __construct(
+        private readonly Builder $builder,
+    ) {}
 
     public function serializeRecord(Serializer $serializer, Record $record): bool
     {
