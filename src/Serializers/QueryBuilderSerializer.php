@@ -2,7 +2,7 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Serializers;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Contracts\Database\Query\Builder;
 use RodrigoPedra\LaravelRecordProcessor\Configurators\Serializers\QueryBuilderSerializerConfigurator;
 use RodrigoPedra\RecordProcessor\Concerns\CountsLines;
 use RodrigoPedra\RecordProcessor\Configurators\Serializers\SerializerConfigurator;

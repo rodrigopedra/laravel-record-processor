@@ -2,7 +2,7 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Configurators\Serializers;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use RodrigoPedra\LaravelRecordProcessor\Serializers\EloquentSerializer;
 use RodrigoPedra\RecordProcessor\Configurators\Serializers\SerializerConfigurator;
 

@@ -2,8 +2,8 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Query\Builder as QueryBuilder;
 use RodrigoPedra\LaravelRecordProcessor\Readers\EloquentReader;
 use RodrigoPedra\LaravelRecordProcessor\Readers\QueryBuilderReader;
 use RodrigoPedra\LaravelRecordProcessor\Serializers\EloquentSerializer;

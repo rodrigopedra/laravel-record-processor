@@ -2,7 +2,7 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Readers;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use RodrigoPedra\LaravelRecordProcessor\Configurators\Readers\EloquentReaderConfigurator;
 use RodrigoPedra\LaravelRecordProcessor\RecordParsers\EloquentRecordParser;
 use RodrigoPedra\RecordProcessor\Concerns\CountsLines;

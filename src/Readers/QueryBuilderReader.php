@@ -2,7 +2,7 @@
 
 namespace RodrigoPedra\LaravelRecordProcessor\Readers;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Contracts\Database\Query\Builder;
 use RodrigoPedra\LaravelRecordProcessor\Configurators\Readers\QueryBuilderReaderConfigurator;
 use RodrigoPedra\RecordProcessor\Concerns\CountsLines;
 use RodrigoPedra\RecordProcessor\Concerns\Readers\HasInnerIterator;
