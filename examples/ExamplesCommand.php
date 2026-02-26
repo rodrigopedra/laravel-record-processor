@@ -67,7 +67,7 @@ class ExamplesCommand extends BaseExamplesCommand
         if ($serializer === 'eloquent') {
             $eloquentBuilder = $this->makeEloquentBuilder('output.sqlite');
 
-            return $builder->writeToEloquent($eloquentBuilder, function (EloquentSerializerConfigurator $configurator) {
+            return $builder->serializeToEloquent($eloquentBuilder, function (EloquentSerializerConfigurator $configurator) {
                 $configurator->withRecordSerializer(new ExampleLaravelBuilderSerializer());
                 $configurator->withShouldOutputModels(true);
             });
@@ -76,7 +76,7 @@ class ExamplesCommand extends BaseExamplesCommand
         if ($serializer === 'query-builder') {
             $eloquentBuilder = $this->makeEloquentBuilder('output.sqlite');
 
-            return $builder->writeToQueryBuilder($eloquentBuilder->getQuery());
+            return $builder->serializeToQueryBuilder($eloquentBuilder->getQuery());
         }
 
         return parent::serializeTo($builder, $serializer);
