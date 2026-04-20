@@ -14,7 +14,7 @@ class ExampleLaravelBuilderParser implements RecordParser
      * @param  \Illuminate\Database\Eloquent\Model|\stdClass  $rawContent
      * @return \RodrigoPedra\RecordProcessor\Contracts\Record
      */
-    public function parseRecord(Reader $reader, $rawContent): Record
+    public function parseRecords(Reader $reader, $rawContent): Record
     {
         return new ExampleRecord($rawContent->name, [
             'name' => $rawContent->name,

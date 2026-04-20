@@ -11,7 +11,7 @@ use RuntimeException;
 
 class EloquentRecordParser implements RecordParser
 {
-    public function parseRecord(Reader $reader, $rawContent): Record
+    public function parseRecords(Reader $reader, $rawContent): Record
     {
         if (! $rawContent instanceof Model) {
             throw new RuntimeException('content for EloquentRecordParser should be an Eloquent Model');
