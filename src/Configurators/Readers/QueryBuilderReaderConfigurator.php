@@ -7,7 +7,7 @@ use RodrigoPedra\LaravelRecordProcessor\Readers\QueryBuilderReader;
 use RodrigoPedra\RecordProcessor\Configurators\Readers\ReaderConfigurator;
 
 /**
- * @property  \RodrigoPedra\LaravelRecordProcessor\Readers\QueryBuilderReader $reader
+ * @property \RodrigoPedra\LaravelRecordProcessor\Readers\QueryBuilderReader $reader
  */
 class QueryBuilderReaderConfigurator extends ReaderConfigurator
 {

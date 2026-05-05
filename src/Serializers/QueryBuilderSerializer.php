@@ -13,12 +13,11 @@ class QueryBuilderSerializer implements Serializer
 {
     use CountsLines;
 
-    protected Builder $queryBuilder;
-    protected SerializerConfigurator $configurator;
+    protected readonly SerializerConfigurator $configurator;
 
-    public function __construct(Builder $queryBuilder)
-    {
-        $this->queryBuilder = $queryBuilder;
+    public function __construct(
+        protected readonly Builder $queryBuilder,
+    ) {
         $this->configurator = new QueryBuilderSerializerConfigurator($this);
     }
 
@@ -32,10 +31,7 @@ class QueryBuilderSerializer implements Serializer
         $this->lineCount = 0;
     }
 
-    public function close(): void
-    {
-        //
-    }
+    public function close(): void {}
 
     public function append($content): void
     {

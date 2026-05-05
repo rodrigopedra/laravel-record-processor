@@ -12,7 +12,7 @@ use RodrigoPedra\RecordProcessor\ProcessorBuilder as BaseBaseProcessorBuilder;
 
 class ProcessorBuilder extends BaseBaseProcessorBuilder
 {
-    public function readFromEloquent(Builder $eloquentBuilder, callable $configurator = null): self
+    public function readFromEloquent(Builder $eloquentBuilder, ?callable $configurator = null): self
     {
         $this->reader = new EloquentReader($eloquentBuilder);
 
@@ -21,7 +21,7 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
         return $this;
     }
 
-    public function readFromQueryBuilder(QueryBuilder $queryBuilder, callable $configurator = null): self
+    public function readFromQueryBuilder(QueryBuilder $queryBuilder, ?callable $configurator = null): self
     {
         $this->reader = new QueryBuilderReader($queryBuilder);
 
@@ -30,7 +30,7 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
         return $this;
     }
 
-    public function serializeToEloquent(Builder $eloquentBuilder, callable $configurator = null): self
+    public function serializeToEloquent(Builder $eloquentBuilder, ?callable $configurator = null): self
     {
         $serializer = new EloquentSerializer($eloquentBuilder);
 
@@ -40,7 +40,7 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
         return $this;
     }
 
-    public function serializeToQueryBuilder(QueryBuilder $queryBuilder, callable $configurator = null): self
+    public function serializeToQueryBuilder(QueryBuilder $queryBuilder, ?callable $configurator = null): self
     {
         $serializer = new QueryBuilderSerializer($queryBuilder);
 
@@ -53,7 +53,7 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
     /**
      * @deprecated Use ProcessorBuilder@serializeToEloquent()
      */
-    public function writeToEloquent(Builder $eloquentBuilder, callable $configurator = null): self
+    public function writeToEloquent(Builder $eloquentBuilder, ?callable $configurator = null): self
     {
         return $this->serializeToEloquent($eloquentBuilder, $configurator);
     }
@@ -61,7 +61,7 @@ class ProcessorBuilder extends BaseBaseProcessorBuilder
     /**
      * @deprecated Use ProcessorBuilder@serializeToEloquent()
      */
-    public function writeToQueryBuilder(QueryBuilder $queryBuilder, callable $configurator = null): self
+    public function writeToQueryBuilder(QueryBuilder $queryBuilder, ?callable $configurator = null): self
     {
         return $this->serializeToQueryBuilder($queryBuilder, $configurator);
     }

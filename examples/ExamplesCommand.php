@@ -28,8 +28,8 @@ class ExamplesCommand extends BaseExamplesCommand
 
     /**
      * @param  \RodrigoPedra\RecordProcessor\ProcessorBuilder&\RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder  $builder
-     * @param  string  $reader
      * @return \RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder
+     *
      * @throws \Throwable
      */
     protected function readFrom(BaseProcessorBuilder $builder, string $reader): BaseProcessorBuilder
@@ -58,8 +58,8 @@ class ExamplesCommand extends BaseExamplesCommand
 
     /**
      * @param  \RodrigoPedra\RecordProcessor\ProcessorBuilder&\RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder  $builder
-     * @param  string  $serializer
      * @return \RodrigoPedra\LaravelRecordProcessor\ProcessorBuilder
+     *
      * @throws \Throwable
      */
     protected function serializeTo(BaseProcessorBuilder $builder, string $serializer): BaseProcessorBuilder

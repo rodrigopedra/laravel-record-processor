@@ -9,6 +9,7 @@ class UserEloquentModel extends Model
     public $timestamps = false;
 
     protected $table = 'users';
+
     protected $primaryKey = 'rowid';
 
     protected $fillable = [

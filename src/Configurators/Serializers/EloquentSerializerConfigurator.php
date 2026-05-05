@@ -7,7 +7,7 @@ use RodrigoPedra\LaravelRecordProcessor\Serializers\EloquentSerializer;
 use RodrigoPedra\RecordProcessor\Configurators\Serializers\SerializerConfigurator;
 
 /**
- * @property  \RodrigoPedra\LaravelRecordProcessor\Serializers\EloquentSerializer $serializer
+ * @property \RodrigoPedra\LaravelRecordProcessor\Serializers\EloquentSerializer $serializer
  */
 class EloquentSerializerConfigurator extends SerializerConfigurator
 {

@@ -7,7 +7,7 @@ use RodrigoPedra\LaravelRecordProcessor\Readers\EloquentReader;
 use RodrigoPedra\RecordProcessor\Configurators\Readers\ReaderConfigurator;
 
 /**
- * @property  \RodrigoPedra\LaravelRecordProcessor\Readers\EloquentReader $reader
+ * @property \RodrigoPedra\LaravelRecordProcessor\Readers\EloquentReader $reader
  */
 class EloquentReaderConfigurator extends ReaderConfigurator
 {

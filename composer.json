@@ -16,12 +16,14 @@
   ],
   "require": {
     "php": "^8.2",
-    "rodrigopedra/record-processor": "^6.0",
+    "rodrigopedra/record-processor": "^6.1",
     "illuminate/contracts": "^11.0|^12.0",
     "illuminate/database": "^11.0|^12.0",
     "illuminate/support": "^11.0|^12.0"
   },
   "require-dev": {
+    "laravel/pint": "^1.29",
+    "rector/rector": "^2.4",
     "symfony/console": "^7.3",
     "symfony/http-foundation": "^7.3",
     "symfony/process": "^7.3",

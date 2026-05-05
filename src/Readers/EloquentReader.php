@@ -55,5 +55,3 @@ final class EloquentReader implements Reader
         return new EloquentRecordParser();
     }
 }
-
-

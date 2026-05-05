@@ -14,15 +14,15 @@ class EloquentSerializer implements Serializer
 {
     use CountsLines;
 
-    protected Builder $builder;
     protected ?Collection $results = null;
+
     protected bool $shouldOutputModels = false;
-    protected EloquentSerializerConfigurator $configurator;
 
-    public function __construct(Builder $eloquentBuilder)
-    {
-        $this->builder = $eloquentBuilder;
+    protected readonly EloquentSerializerConfigurator $configurator;
 
+    public function __construct(
+        protected readonly Builder $builder,
+    ) {
         $this->withShouldOutputModels(false);
         $this->configurator = new EloquentSerializerConfigurator($this);
     }
@@ -46,10 +46,7 @@ class EloquentSerializer implements Serializer
         $this->results = $this->shouldOutputModels ? Collection::make() : null;
     }
 
-    public function close(): void
-    {
-        //
-    }
+    public function close(): void {}
 
     public function append($content): void
     {

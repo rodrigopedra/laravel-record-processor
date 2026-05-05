@@ -10,9 +10,7 @@ use RodrigoPedra\RecordProcessor\Examples\RecordObjects\ExampleRecord;
 class ExampleLaravelBuilderParser implements RecordParser
 {
     /**
-     * @param  \RodrigoPedra\RecordProcessor\Contracts\Reader  $reader
      * @param  \Illuminate\Database\Eloquent\Model|\stdClass  $rawContent
-     * @return \RodrigoPedra\RecordProcessor\Contracts\Record
      */
     public function parseRecords(Reader $reader, $rawContent): Record
     {
